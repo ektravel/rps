@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang = "en-us">
+    <head>
+        <meta charset="UTF-8">
+        <title>RPS Game</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        <!-- Display area -->
+        <div class="container">
+            <div class="jumbotron bg-info text-white">
+                <h1 class="text-center">Rock / Paper / Scissors</h1>
+                <h2 class="lead text-center">To play, press "p" for paper, "r" for rock, or "s" for scissors.</h2>  
+                <hr class="my-4">
+                <p id="user-text"><strong></strong></p>
+                <!-- <p id="error"></p>    -->
+            </div>       
+        </div>
+
+        <!-- JavaScript  -->
+
+        <script type="text/javascript">
+        
+        //An array that lists out all of the options (rock, paper, scissors)
+        var computerOptions = ["r", "p", "s"];
+
+        var wins = 0;
+        var losses = 0;
+        var ties = 0;
+
+        //This function will execute when onkey event fires
+        document.onkeyup = function(event){
+            
+            var userGuess = event.key;
+
+            //Generate a random pick - this is what the computer guessed
+            var computerRandomPick = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+
+            function compareResult(){    
+              
+                if((userGuess === "p") && (computerRandomPick === "r")){
+                    wins++;
+                }else if((userGuess === "p") && (computerRandomPick === "s")){
+                    losses++;
+                }else if((userGuess === "r") && (computerRandomPick === "s")){
+                    wins++;
+                }else if((userGuess === "r") && (computerRandomPick === "p")){
+                    losses++;
+                }else if((userGuess === "s") && (computerRandomPick === "p")){
+                    wins++;
+                }else if((userGuess === "s") && (computerRandomPick === "r")){
+                    losses++;
+                }else if(userGuess === computerRandomPick){
+                    ties++;
+                }
+
+                var html = 
+                "<p>You chose: " + userGuess + "</p>" +
+                "<p>Computer chose: " + computerRandomPick + "</p>" +
+                "<p>Wins: " + wins + "</p>" +
+                "<p>Losses: " + losses + "</p>" +
+                "<p>Ties: " + ties + "</p>";
+
+                //Alert the user about user and computer choices
+                document.getElementById("user-text").innerHTML = html;
+            };
+
+            if (userGuess === "r" || userGuess === "p" || userGuess === "s"){
+                compareResult();
+                
+            }else{
+                // document.getElementById("error").innerHTML = "Please pick p, r, or s.";
+                alert("Please pick p, r, or s.");
+            };
+
+        };
+
+        </script>
+    </body>
+
+</html>
